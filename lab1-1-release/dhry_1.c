@@ -167,7 +167,7 @@ main ()
     Proc_8 (Arr_1_Glob, Arr_2_Glob, Int_1_Loc, Int_3_Loc);
       /* Int_Glob == 5 */
     Proc_1 (Ptr_Glob);
-    for (Ch_Index = 'A'; Ch_Index <= Ch_2_Glob - 1; ++Ch_Index)
+    for (Ch_Index = 'A'; Ch_Index <= Ch_2_Glob - 2; ++Ch_Index)
                              /* loop body executed twice */
     {
       if (Enum_Loc == Func_1 (Ch_Index, 'C'))
@@ -297,11 +297,11 @@ REG Rec_Pointer Ptr_Val_Par;
                                         /* == Ptr_Glob_Next */
   /* Local variable, initialized with Ptr_Val_Par->Ptr_Comp,    */
   /* corresponds to "rename" in Ada, "with" in Pascal           */
-  
-  structassign (*Ptr_Val_Par->Ptr_Comp, *Ptr_Glob); 
   Ptr_Val_Par->variant.var_1.Int_Comp = 5;
-  Next_Record->variant.var_1.Int_Comp 
-        = Ptr_Val_Par->variant.var_1.Int_Comp;
+  structassign (*Ptr_Val_Par->Ptr_Comp, *Ptr_Glob); 
+  //Ptr_Val_Par->variant.var_1.Int_Comp = 5;
+  //Next_Record->variant.var_1.Int_Comp 
+  //      = Ptr_Val_Par->variant.var_1.Int_Comp;
   Next_Record->Ptr_Comp = Ptr_Val_Par->Ptr_Comp;
   Proc_3 (&Next_Record->Ptr_Comp);
     /* Ptr_Val_Par->Ptr_Comp->Ptr_Comp 
