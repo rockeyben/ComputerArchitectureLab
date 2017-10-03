@@ -1,0 +1,52 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ns/call  ns/call  name    
+ 41.67      0.10     0.10                             Proc_1
+ 20.83      0.15     0.05 10000000     5.00     5.00  Proc_7
+ 12.50      0.18     0.03                             Func_2
+  8.33      0.20     0.02                             Proc_8
+  8.33      0.22     0.02                             __writev_nocancel
+  4.17      0.23     0.01 10000000     1.00     1.00  Proc_6
+  4.17      0.24     0.01                             __strcmp_sse2_unaligned
+  0.00      0.24     0.00        1     0.00     0.00  main
+
+			Call graph
+
+
+granularity: each sample hit covers 2 byte(s) for 4.17% of 0.24 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     66.7    0.10    0.06                 Proc_1 [1]
+                0.05    0.00 10000000/10000000     Proc_7 [2]
+                0.01    0.00 10000000/10000000     Proc_6 [6]
+-----------------------------------------------
+                0.05    0.00 10000000/10000000     Proc_1 [1]
+[2]     20.8    0.05    0.00 10000000         Proc_7 [2]
+-----------------------------------------------
+                                                 <spontaneous>
+[3]     12.5    0.03    0.00                 Func_2 [3]
+-----------------------------------------------
+                                                 <spontaneous>
+[4]      8.3    0.02    0.00                 Proc_8 [4]
+-----------------------------------------------
+                                                 <spontaneous>
+[5]      8.3    0.02    0.00                 __writev_nocancel [5]
+-----------------------------------------------
+                0.01    0.00 10000000/10000000     Proc_1 [1]
+[6]      4.2    0.01    0.00 10000000         Proc_6 [6]
+-----------------------------------------------
+                                                 <spontaneous>
+[7]      4.2    0.01    0.00                 __strcmp_sse2_unaligned [7]
+-----------------------------------------------
+                0.00    0.00       1/1           generic_start_main [125]
+[8]      0.0    0.00    0.00       1         main [8]
+-----------------------------------------------
+
+Index by function name
+
+   [3] Func_2                  [2] Proc_7                  [5] __writev_nocancel
+   [1] Proc_1                  [4] Proc_8                  [8] main
+   [6] Proc_6                  [7] __strcmp_sse2_unaligned

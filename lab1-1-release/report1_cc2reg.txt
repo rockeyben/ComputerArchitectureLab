@@ -1,0 +1,48 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ns/call  ns/call  name    
+ 37.04      0.10     0.10                             Proc_1
+ 14.82      0.14     0.04                             Proc_8
+ 14.82      0.18     0.04                             __strcmp_sse2_unaligned
+ 14.82      0.22     0.04                             __writev_nocancel
+ 12.96      0.26     0.04 10000000     3.50     3.50  Proc_7
+  5.56      0.27     0.02 10000000     1.50     1.50  Proc_6
+  0.00      0.27     0.00        1     0.00     0.00  main
+
+			Call graph
+
+
+granularity: each sample hit covers 2 byte(s) for 3.70% of 0.27 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     55.6    0.10    0.05                 Proc_1 [1]
+                0.04    0.00 10000000/10000000     Proc_7 [5]
+                0.02    0.00 10000000/10000000     Proc_6 [6]
+-----------------------------------------------
+                                                 <spontaneous>
+[2]     14.8    0.04    0.00                 Proc_8 [2]
+-----------------------------------------------
+                                                 <spontaneous>
+[3]     14.8    0.04    0.00                 __strcmp_sse2_unaligned [3]
+-----------------------------------------------
+                                                 <spontaneous>
+[4]     14.8    0.04    0.00                 __writev_nocancel [4]
+-----------------------------------------------
+                0.04    0.00 10000000/10000000     Proc_1 [1]
+[5]     13.0    0.04    0.00 10000000         Proc_7 [5]
+-----------------------------------------------
+                0.02    0.00 10000000/10000000     Proc_1 [1]
+[6]      5.6    0.02    0.00 10000000         Proc_6 [6]
+-----------------------------------------------
+                0.00    0.00       1/1           generic_start_main [125]
+[7]      0.0    0.00    0.00       1         main [7]
+-----------------------------------------------
+
+Index by function name
+
+   [1] Proc_1                  [2] Proc_8                  [7] main
+   [6] Proc_6                  [3] __strcmp_sse2_unaligned
+   [5] Proc_7                  [4] __writev_nocancel
