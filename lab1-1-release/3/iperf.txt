@@ -1,0 +1,34 @@
+rockeyben@rockeyben-ThinkPad-X260:~/myapp$ iperf -u -c 119.75.217.109 -b 1M -t 10
+------------------------------------------------------------
+Client connecting to 119.75.217.109, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 172.20.10.3 port 41147 connected with 119.75.217.109 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0-10.0 sec  1.19 MBytes  1000 Kbits/sec
+[  3] Sent 852 datagrams
+[  3] WARNING: did not receive ack of last datagram after 10 tries.
+rockeyben@rockeyben-ThinkPad-X260:~/myapp$ iperf -u -c 119.75.217.109 -b 1M -t 20
+------------------------------------------------------------
+Client connecting to 119.75.217.109, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 172.20.10.3 port 50198 connected with 119.75.217.109 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0-20.0 sec  2.39 MBytes  1000 Kbits/sec
+[  3] Sent 1702 datagrams
+[  3] WARNING: did not receive ack of last datagram after 10 tries.
+rockeyben@rockeyben-ThinkPad-X260:~/myapp$ iperf -u -c 119.75.217.109 -b 1M -t 30
+------------------------------------------------------------
+Client connecting to 119.75.217.109, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 172.20.10.3 port 54676 connected with 119.75.217.109 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0-30.0 sec  3.58 MBytes  1000 Kbits/sec
+[  3] Sent 2552 datagrams
+[  3] WARNING: did not receive ack of last datagram after 10 tries.
+
