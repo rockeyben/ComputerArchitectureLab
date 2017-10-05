@@ -1218,3 +1218,9 @@ Str_2_Loc:           DHRYSTONE PROGRAM, 2'ND STRING
 Microseconds for one run through Dhrystone:    0.4 
 Dhrystones per Second:                      2737226.2 
 
+
+
+
+
+3183023.8
+
