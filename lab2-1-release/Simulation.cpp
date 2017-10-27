@@ -5,6 +5,8 @@
 #define ll long long
 using namespace std;
 
+bool debug_flag = false;
+
 extern void read_elf(const char*filename);
 extern Elf64_Ehdr elf64_hdr;
 extern Elf64_Off code_offset;
@@ -21,7 +23,9 @@ extern Elf64_Xword SP_size;
 extern Elf64_Xword main_size;
 extern Elf64_Addr gp;
 extern char* all_start;
-
+extern Elf64_Addr a_addr;
+extern Elf64_Addr b_addr;
+extern Elf64_Addr c_addr;
 //extern void read_elf();
 extern FILE *file;
 //指令运行数
@@ -82,8 +86,19 @@ void load_memory()
 
 int main(int argc, char*argv[])
 {	
-	//解析elf文件
-	read_elf(argv[1]);
+
+	if(argc == 3)
+	{
+		if(!strcmp(argv[1], "-d"))
+		{
+			debug_flag =true;
+			read_elf(argv[2]);
+		}
+	}
+	else if(argc <= 2)
+	{
+		read_elf(argv[1]);
+	}
 	
 	//加载内存
 	load_memory();
@@ -95,8 +110,10 @@ int main(int argc, char*argv[])
 	reg[3]=gp;
 	
 	reg[2]=MAX/2;//栈基址 （sp寄存器）
-
+	//debug();
 	simulate();
+
+	printf("\n\nfinal information:\n");
 	debug();
 	cout <<"simulate over!"<<endl;
 
@@ -108,12 +125,26 @@ void debug()
 	for(int i = 0; i < 32; i++)
 		printf("%d. %llx  ", i, reg[i]);
 	printf("\n");
-	unsigned int g =reg[3]>>2;
-	for(unsigned int i = 0; i < 15; i++)
+	unsigned int g = a_addr>>2;
+	printf("a: \n");
+	for(unsigned int i = 0; i < 9; i++)
 	{
-		printf("Mem%lx.%d   ", (g+i) << 2, memory[i]);
+		printf("Mem%lx %d   ", (g+i) << 2, memory[g+i]);
+	}
+	printf("\nb: \n");
+	g = b_addr >> 2;
+	for(unsigned int i = 0; i < 9; i++)
+	{
+		printf("Mem%lx %d   ", (g+i) << 2, memory[g+i]);
+	}
+	printf("\nc: \n");
+	g = c_addr >> 2;
+	for (unsigned int i = 0; i < 9; i++)
+	{
+		printf("Mem%lx %d   ", (g+i) << 2, memory[g+i]);
 	}
 	printf("\n");
+
 }
 
 void simulate()
@@ -129,6 +160,7 @@ void simulate()
 		MEM();
 		WB();
 
+
 		//更新中间寄存器
 		IF_ID=IF_ID_old;
 		ID_EX=ID_EX_old;
@@ -139,8 +171,16 @@ void simulate()
             break;
 
         reg[0]=0;//一直为零
-        debug();
-	}
+        if(debug_flag)
+        {
+			debug();
+			char q = cin.get();
+			if(q=='q')
+			{
+				exit(0);
+			}
+        }	
+    }
 }
 
 
@@ -175,7 +215,7 @@ void ID()
 	unsigned int rs2;
 
 	//printf("%05llx  %08x  %x   %x  %x  \n",(IF_ID_old.PC)<<2, inst, OP, fuc3, fuc7);
-	printf("%05llx  %08x    ", (IF_ID_old.PC)<<2, inst);
+	printf("Addr: %08llx  instruction: %08x    ", (IF_ID_old.PC)<<2, inst);
 	rs1 = getRs1(inst);
 	rs2 = getRs2(inst);
 	if(OP==OP_R)
@@ -418,6 +458,7 @@ void ID()
     {
     	ll a = (ll)reg[rs1];
        	ll imm = ext_signed_ll(getbit(inst, 20, 31), 11);
+       	unsigned int shamt = getbit(inst, 20, 24);
     	/* addi rd, rs1, imm */
         if(fuc3==F3_SB)
         {
@@ -429,13 +470,7 @@ void ID()
         else if(fuc3==1)
         {
         	printf("slli rd, rs1, imm\n");
-        	if(imm < 0 || imm > 64)
-        	{
-        		printf("slli, invalid shamt!\n");
-        		imm=0;
-        		//break;
-        	}
-        	reg[rd] = reg[rs1] << imm;
+        	reg[rd] = reg[rs1] << shamt;
         }
         /* slti rd, rs1, imm */
         else if(fuc3==2)
@@ -461,25 +496,13 @@ void ID()
         else if(fuc3==5&&fuc7==0)
         {
         	printf("srli rd, rs1, imm\n");
-        	if(imm > 64 || imm < 0)
-        	{
-        		printf("srli, invalid shamt!\n");
-        		imm=0;
-        		//break;
-        	}
-        	reg[rd] = reg[rs1] >> imm;
+        	reg[rd] = reg[rs1] >> shamt;
         }
         /* srai rd, rs1, imm */
         else if(fuc3==5)
         {
         	printf("srai rd, rs1, imm\n");
-        	if(imm > 64 || imm < 0)
-        	{
-        		printf("srai, invalid shamt!\n");
-        		imm=0;
-        		//break;
-        	}
-        	ll c = a >> imm;
+        	ll c = a >> shamt;
         	reg[rd] = (unsigned ll)c;
         }
         /* ori rd, rs1, imm */
@@ -623,7 +646,7 @@ void ID()
         /* bge rs1, rs2, offset */
         else
         {
-        	printf("bge rs1, rs2, offset %x\n", (PC+imm-1)<<2);
+        	printf("bge rs1, rs2, offset destination:%x\n", (PC+imm-1)<<2);
         	//printf("%lld %lld %d %d\n", reg[rs1], reg[rs2], rs1, rs2);
         	if(a>=b)
         	{
@@ -643,7 +666,7 @@ void ID()
 		ll imm = ext_signed_ll(immi, 20);
 		imm = imm >> 2;
 		printf("%x  ",  imm);
-		printf("%x\n", (PC+imm-1)<<2);
+		printf("   destination:%x\n", (PC+imm-1)<<2);
 		reg[rd] = PC;
 		PC = PC + imm - 1;
     }
@@ -691,13 +714,37 @@ void ID()
     }
     else if(OP==OP_RW)
     {
-    	printf("addw rd, rs1, rs2\n");
-    	int a = (int)reg[rs1];
-    	int b = (int)reg[rs2];
-    	int c = a + b;
-    	unsigned int d = (unsigned int)c;
-    	ll e = ext_signed_ll(d, 31);
-    	reg[rd] = (unsigned ll)e;
+    	if(fuc7==0)
+    	{
+	    	printf("addw rd, rs1, rs2\n");
+	    	int a = (int)reg[rs1];
+	    	int b = (int)reg[rs2];
+	    	int c = a + b;
+	    	unsigned int d = (unsigned int)c;
+	    	ll e = ext_signed_ll(d, 31);
+	    	reg[rd] = (unsigned ll)e;
+    	}
+    	else if(fuc7==32)
+    	{
+    		printf("subw rd, rs1, rs2\n");
+    		int a = (int)reg[rs1];
+	    	int b = (int)reg[rs2];
+	    	int c = a - b;
+	    	unsigned int d = (unsigned int)c;
+	    	ll e = ext_signed_ll(d, 31);
+	    	reg[rd] = (unsigned ll)e;
+	    	
+    	}
+    	else if(fuc7==1)
+    	{
+    		printf("mulw rd, rs1, rs2\n");
+    		int a = (int)reg[rs1];
+	    	int b = (int)reg[rs2];
+	    	int c = a * b;
+	    	unsigned int d = (unsigned int)c;
+	    	ll e = ext_signed_ll(d, 31);
+	    	reg[rd] = (unsigned ll)e;
+    	}
     }
 
 	//write ID_EX_old

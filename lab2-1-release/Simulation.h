@@ -34,6 +34,7 @@
 #define OP_RW 59
 #define F3_ADDW 0
 #define F7_ADDW 0
+#define F7_SUBW 32
 
 
 #define OP_SCALL 115
@@ -157,9 +158,10 @@ ll ext_signed_ll(unsigned int src, int bit)
 {
 	unsigned int sign_bit = (src >> bit) & 1;
 	unsigned ll t = (unsigned ll)src;
+	unsigned ll one = 1;
 	if(sign_bit == 1)
 	{
-		unsigned ll mask = ~((1 << (bit+1)) - 1);
+		unsigned ll mask = ~((one << (bit+1)) - 1);
 		unsigned ll res = t | mask;
 		return res;
 	}

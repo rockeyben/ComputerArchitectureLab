@@ -15,6 +15,9 @@ Elf64_Addr SP;
 Elf64_Xword SP_size;
 Elf64_Xword main_size;
 Elf64_Addr gp;
+Elf64_Addr a_addr;
+Elf64_Addr b_addr;
+Elf64_Addr c_addr;
 char * all_start;
 
 
@@ -65,30 +68,36 @@ void read_elf(const char*filename)
 	memcpy(&elf64_hdr, all_start, sizeof(elf64_hdr));
 
 
+
 	read_Elf_header();
 	
+	printf("\n\n\n\n");
 	
 	read_elf_sections();
-
+	
+	printf("\n\n\n\n");
 	
 	read_Phdr();
-
+	
+	printf("\n\n\n\n");
 	
 	read_symtable();
 
+	printf("\n\n\n\n");
 	
-	printf("-------------------------------------------------\n");
-	printf("code_segment and size %llx %llx\n", code_segment, code_size);
-	printf("data_segment and size %llx %llx\n", data_segment, data_size);
-	printf("main_in and main_size %llx %llx\n", main_in, main_size);
-	printf("SP and SP_size %llx %llx\n", SP, SP_size);
-	printf("GP %llx\n", gp);
+	printf("-------------------Some infos------------------------------\n");
+	printf("code_segment and size 0x%08llx %lldbytes\n", code_segment, code_size);
+	printf("data_segment and size 0x%08llx %lldbytes\n", data_segment, data_size);
+	printf("main_in and main_size 0x%08llx %lldbytes\n", main_in, main_size);
+	printf("SP and SP_size 0x%08llx %lldbytes\n", SP, SP_size);
+	printf("GP 0x%08llx\n", gp);
+	printf("Matrix a addr:0x%08llx, Matrix b addr:0x%08llx,  Matrix c addr:0x%08llx\n", a_addr, b_addr, c_addr);
 	
 }
 
 void read_Elf_header()
 {
-	printf("ELF Header:\n");
+	printf("----------------ELF Header-----------------:\n");
 	//file should be relocated
 	//fread(&elf64_hdr,1,sizeof(elf64_hdr),file);
 	//printf("%d\n", sizeof(elf64_hdr));
@@ -228,6 +237,9 @@ void read_Elf_header()
 
 void read_elf_sections()
 {
+
+	printf("------------------Elf sections-----------------\n");
+
 	Elf64_Shdr * section_start = (Elf64_Shdr*)(all_start + elf64_hdr.e_shoff);
 	//printf("e_shstrndx is : %d\n", elf64_hdr.e_shstrndx);
 	char * str = all_start + section_start[elf64_hdr.e_shstrndx].sh_offset;
@@ -238,20 +250,21 @@ void read_elf_sections()
 		
 		//file should be relocated
 		//fread(&elf64_shdr,1,sizeof(elf64_shdr),file);
-		printf("Addr: %llx   ", section_start[c].sh_addr);
-		printf("offset: %llx   ", section_start[c].sh_offset);
+		printf("Addr: 0x%08llx   ", section_start[c].sh_addr);
+		printf("offset: 0x%08llx   ", section_start[c].sh_offset);
 		printf("size %x\n", section_start[c].sh_size);
  	}
 }
 
 void read_Phdr()
 {
+	printf("------------------Elf program headers-----------------\n");
 	Elf64_Phdr elf64_phdr;
 	Elf64_Phdr* pro_start = (Elf64_Phdr*)(all_start+elf64_hdr.e_phoff);
 	int cnt = 0;
 	for(int c=0;c<elf64_hdr.e_phnum;c++)
 	{
-		//printf("%llx %llx %llx %llx %llx\n", pro_start[c].p_offset, pro_start[c].p_vaddr, pro_start[c].p_paddr, pro_start[c].p_filesz, pro_start[c].p_memsz);
+		printf("offset:%08llx  vaddr:0x%08llx paddr:0x%08llx filesize:%lld bytes  memsize:%lldbytes\n", pro_start[c].p_offset, pro_start[c].p_vaddr, pro_start[c].p_paddr, pro_start[c].p_filesz, pro_start[c].p_memsz);
 		if(pro_start[c].p_type==PT_LOAD)
 		{
 			if(cnt == 0)
@@ -280,6 +293,7 @@ void read_Phdr()
 
 void read_symtable()
 {
+	printf("------------------Elf Sym table-----------------\n");
 	Elf64_Shdr * section_start = (Elf64_Shdr*)(all_start + elf64_hdr.e_shoff);
 	//printf("e_shstrndx is : %d\n", elf64_hdr.e_shstrndx);
 	char * str = all_start + section_start[elf64_hdr.e_shstrndx].sh_offset;
@@ -312,7 +326,7 @@ void read_symtable()
 	char * symstr = all_start + section_start[elf64_hdr.e_shnum-2].sh_offset;
 	for(int c=0;c<symnum;c++)
 	{
-		printf("%d. %llx %s\n",c, sym_start[c].st_value, symstr+sym_start[c].st_name);
+		printf("%d. 0x%08llx      %s\n",c, sym_start[c].st_value, symstr+sym_start[c].st_name);
 		if(!strcmp(symstr+sym_start[c].st_name, "main"))
 		{
 			//printf("hahahahahha\n");
@@ -324,6 +338,19 @@ void read_symtable()
 		{
 			gp = sym_start[c].st_value;
 		}
+		if(!strcmp(symstr+sym_start[c].st_name, "a"))
+		{
+			a_addr = sym_start[c].st_value;
+		}
+		if(!strcmp(symstr+sym_start[c].st_name, "b"))
+		{
+			b_addr = sym_start[c].st_value;
+		}
+		if(!strcmp(symstr+sym_start[c].st_name, "c"))
+		{
+			c_addr = sym_start[c].st_value;
+		}
+
 	}
 
 }
