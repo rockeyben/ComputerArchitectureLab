@@ -4,3 +4,5 @@
 Written by RockeyBen
 
 Goal: write a clear and feasible architecture which can be used as module !
+
+And substitute the original module which is a shit.
