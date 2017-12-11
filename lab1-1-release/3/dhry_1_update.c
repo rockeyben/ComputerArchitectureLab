@@ -297,11 +297,11 @@ REG Rec_Pointer Ptr_Val_Par;
                                         /* == Ptr_Glob_Next */
   /* Local variable, initialized with Ptr_Val_Par->Ptr_Comp,    */
   /* corresponds to "rename" in Ada, "with" in Pascal           */
-  Ptr_Val_Par->variant.var_1.Int_Comp = 5;
+  
   structassign (*Ptr_Val_Par->Ptr_Comp, *Ptr_Glob); 
-  //Ptr_Val_Par->variant.var_1.Int_Comp = 5;
-  //Next_Record->variant.var_1.Int_Comp 
-  //      = Ptr_Val_Par->variant.var_1.Int_Comp;
+  Ptr_Val_Par->variant.var_1.Int_Comp = 5;
+  Next_Record->variant.var_1.Int_Comp 
+        = Ptr_Val_Par->variant.var_1.Int_Comp;
   Next_Record->Ptr_Comp = Ptr_Val_Par->Ptr_Comp;
   Proc_3 (&Next_Record->Ptr_Comp);
     /* Ptr_Val_Par->Ptr_Comp->Ptr_Comp 
