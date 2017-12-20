@@ -1,0 +1,37 @@
+﻿  源.cpp
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(306): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(307): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(308): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(318): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(319): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(320): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(374): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(375): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(376): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(377): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(378): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(379): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(389): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(390): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(391): warning C4804: “>”: 在操作中使用类型“bool”不安全
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(474): warning C4101: “tmpU”: 未引用的局部变量
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(474): warning C4101: “tmpV”: 未引用的局部变量
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(515): warning C4101: “tmpU”: 未引用的局部变量
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(515): warning C4101: “tmpV”: 未引用的局部变量
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(53): warning C4752: 发现 Intel(R) 高级矢量扩展；请考虑使用 /arch:AVX
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(71): warning C4799: 函数“init_params”没有 EMMS 指令
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(424): warning C4799: 函数“transpose_mmx”没有 EMMS 指令
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(468): warning C4799: 函数“yuv2argb_mmx”没有 EMMS 指令
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(509): warning C4799: 函数“yuv2argb_sse”没有 EMMS 指令
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(529): warning C4752: 发现 Intel(R) 高级矢量扩展；请考虑使用 /arch:AVX
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(562): warning C4799: 函数“yuv2argb_avx”没有 EMMS 指令
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(622): warning C4799: 函数“rgb2yuv_picture_merge_mmx”没有 EMMS 指令
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(672): warning C4799: 函数“rgb2yuv_picture_merge_sse”没有 EMMS 指令
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(777): warning C4799: 函数“rgb2yuv_fade_mmx”没有 EMMS 指令
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(817): warning C4799: 函数“rgb2yuv_fade_sse”没有 EMMS 指令
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(688): warning C4752: 发现 Intel(R) 高级矢量扩展；请考虑使用 /arch:AVX
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(832): warning C4752: 发现 Intel(R) 高级矢量扩展；请考虑使用 /arch:AVX
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(894): warning C4799: 函数“process_with_mmx_picture_merge”没有 EMMS 指令
+e:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\yuv2\源.cpp(922): warning C4799: 函数“process_with_mmx_fade”没有 EMMS 指令
+  yuv2.vcxproj -> E:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\Debug\yuv2.exe
+  yuv2.vcxproj -> E:\学习\大三上\体系实习\lab\lab4-1\yuv\yuv2\Debug\yuv2.pdb (Partial PDB)
